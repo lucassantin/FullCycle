@@ -23,4 +23,10 @@ func (c *Consumer) Consume(msgChane chan *ckafka.Message) error {
 	if err != nil {
 		panic(err)
 	}
+	for {
+		msg, err := consumer.ReadMessage(-1)
+		if err == nil {
+			msgChane <- msg
+		}
+	}
 }
